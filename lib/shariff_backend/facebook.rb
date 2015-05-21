@@ -5,9 +5,8 @@ module ShariffBackend
   # Retrieves Facebook Share Count via Graph API
   module Facebook
     def self.count(url)
-      query_url = 'https://api.facebook.com/method/fql.query?format=json' \
-                  '&query=select share_count from link_stat ' \
-                  "where url=\"#{url}\""
+      query_url = 'https://api.facebook.com/method/links.getStats?urls=' \
+                  "\"#{url}\"&format=json"
       encoded = URI.escape(query_url)
       response = HTTPClient.new.get(encoded)
       parse(response) if response.ok?
